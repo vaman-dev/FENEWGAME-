@@ -146,7 +146,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator SendScoreRequest()
     {
-        string url = "https://induction-backend.onrender.com/api/v1/"; // 🔁 Replace with your backend endpoint
+        string url = "https://induction-backend.onrender.com/api/v1"; // 🔁 Replace with your backend endpoint
 
         ScoreData data = new ScoreData
         {
