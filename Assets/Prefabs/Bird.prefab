@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 9020847862631447338}
   - component: {fileID: 9020847862631447339}
-  - component: {fileID: 4945676691993435500}
   - component: {fileID: 2575146346937837417}
   - component: {fileID: -754154353536037816}
+  - component: {fileID: 2867486116562536524}
   m_Layer: 0
   m_Name: Bird
   m_TagString: Obstacle
@@ -87,19 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!65 &4945676691993435500
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9020847862631447337}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.32725906, y: 0.21619451, z: 0.2}
-  m_Center: {x: 0.014930755, y: 0.018195927, z: 0}
 --- !u!114 &2575146346937837417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,3 +119,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4aa01bef04456d489a93b8adc7fec01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!58 &2867486116562536524
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9020847862631447337}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.02, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.1
