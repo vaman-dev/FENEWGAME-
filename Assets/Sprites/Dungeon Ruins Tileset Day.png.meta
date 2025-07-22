@@ -1,0 +1,286 @@
+fileFormatVersion: 2
+guid: e12dd6220ac171e42980cd6713d3bffd
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Dungeon Ruins Tileset Day_25
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 73
+        width: 64
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7263c825cbb192a4ba98c4f3298e382a
+      internalID: -794346782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon Ruins Tileset Day_27
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 80
+        width: 19
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12ced26882b64c246856bc632c8527d3
+      internalID: 1020243161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon Ruins Tileset Day_28
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 80
+        width: 19
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ee5d1acede6d47498205ed99338fda8
+      internalID: -337947509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon Ruins Tileset Day_29
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 80
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e717ef8af3264e440a39f97fd82f4115
+      internalID: 1902729324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon Ruins Tileset Day_30
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 80
+        width: 11
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05638d0a544ea234890b58cb5e3dd4b3
+      internalID: -80820784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Dungeon Ruins Tileset Day_0: -135716335
+      Dungeon Ruins Tileset Day_1: -633449842
+      Dungeon Ruins Tileset Day_10: 181989547
+      Dungeon Ruins Tileset Day_11: 1743248475
+      Dungeon Ruins Tileset Day_12: 392134995
+      Dungeon Ruins Tileset Day_13: -914936540
+      Dungeon Ruins Tileset Day_14: -1001070710
+      Dungeon Ruins Tileset Day_15: -516746736
+      Dungeon Ruins Tileset Day_16: 1270114435
+      Dungeon Ruins Tileset Day_17: -1404323531
+      Dungeon Ruins Tileset Day_18: 1680417233
+      Dungeon Ruins Tileset Day_19: 699297280
+      Dungeon Ruins Tileset Day_2: 2065872800
+      Dungeon Ruins Tileset Day_20: 869358837
+      Dungeon Ruins Tileset Day_21: -512550960
+      Dungeon Ruins Tileset Day_22: -684010977
+      Dungeon Ruins Tileset Day_23: -1014009848
+      Dungeon Ruins Tileset Day_24: 1737989321
+      Dungeon Ruins Tileset Day_25: -794346782
+      Dungeon Ruins Tileset Day_26: 436197384
+      Dungeon Ruins Tileset Day_27: 1020243161
+      Dungeon Ruins Tileset Day_28: -337947509
+      Dungeon Ruins Tileset Day_29: 1902729324
+      Dungeon Ruins Tileset Day_3: -1087386106
+      Dungeon Ruins Tileset Day_30: -80820784
+      Dungeon Ruins Tileset Day_31: -2099113780
+      Dungeon Ruins Tileset Day_32: 552075646
+      Dungeon Ruins Tileset Day_33: -1740369567
+      Dungeon Ruins Tileset Day_34: -916139920
+      Dungeon Ruins Tileset Day_35: -493395276
+      Dungeon Ruins Tileset Day_36: 1046397746
+      Dungeon Ruins Tileset Day_37: 536626461
+      Dungeon Ruins Tileset Day_38: -1231267230
+      Dungeon Ruins Tileset Day_39: -1036931421
+      Dungeon Ruins Tileset Day_4: -342956947
+      Dungeon Ruins Tileset Day_40: -1603623424
+      Dungeon Ruins Tileset Day_41: -1175327325
+      Dungeon Ruins Tileset Day_42: -999256569
+      Dungeon Ruins Tileset Day_43: -893560958
+      Dungeon Ruins Tileset Day_44: -273243938
+      Dungeon Ruins Tileset Day_45: 1159183479
+      Dungeon Ruins Tileset Day_46: 1818650411
+      Dungeon Ruins Tileset Day_47: -881131952
+      Dungeon Ruins Tileset Day_48: -1438917155
+      Dungeon Ruins Tileset Day_49: 812891114
+      Dungeon Ruins Tileset Day_5: 577128826
+      Dungeon Ruins Tileset Day_50: 621788120
+      Dungeon Ruins Tileset Day_51: -1995390452
+      Dungeon Ruins Tileset Day_52: 169384904
+      Dungeon Ruins Tileset Day_53: -1228892173
+      Dungeon Ruins Tileset Day_54: -1915473623
+      Dungeon Ruins Tileset Day_55: 1951218092
+      Dungeon Ruins Tileset Day_56: 1827701657
+      Dungeon Ruins Tileset Day_57: 1884031207
+      Dungeon Ruins Tileset Day_6: -553317
+      Dungeon Ruins Tileset Day_7: 2017145566
+      Dungeon Ruins Tileset Day_8: -2004825390
+      Dungeon Ruins Tileset Day_9: 1413637637
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

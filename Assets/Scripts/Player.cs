@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(CharacterController))]
 public class Player : MonoBehaviour
@@ -24,47 +25,20 @@ public class Player : MonoBehaviour
     {
         direction += gravity * Time.deltaTime * Vector3.down;
 
-        if (character.isGrounded)
+        character.Move(direction * Time.deltaTime);
+    }
+
+    // ✅ Public method called instantly from Button click
+    public void JumpFromButton()
+    {
+        if (!character.isGrounded)
         {
-            direction = Vector3.down;
-
-#if UNITY_EDITOR
-            if (Input.GetButton("Jump"))
-            {
-                direction = Vector3.up * jumpForce;
-                Debug.Log("[Input] Keyboard jump triggered.");
-            }
-#else
-            if (Input.touchCount > 0)
-            {
-                Touch touch = Input.GetTouch(0);
-
-                if (touch.phase == TouchPhase.Began)
-                {
-                    Vector2 touchPos = touch.position;
-
-                    float screenWidth = Screen.width;
-                    float screenHeight = Screen.height;
-
-                    float horizontalBuffer = screenWidth * 0.05f;
-                    float verticalBuffer = screenHeight * 0.05f;
-
-                    if (touchPos.x > horizontalBuffer && touchPos.x < screenWidth - horizontalBuffer &&
-                        touchPos.y > verticalBuffer && touchPos.y < screenHeight - verticalBuffer)
-                    {
-                        direction = Vector3.up * jumpForce;
-                        Debug.Log($"[Input] Precise Touch jump at ({touchPos.x}, {touchPos.y})");
-                    }
-                    else
-                    {
-                        Debug.Log("[Input] Touch ignored: too close to screen edge.");
-                    }
-                }
-            }
-#endif
+            Debug.Log("[Jump] Ignored jump — not grounded.");
+            return;
         }
 
-        character.Move(direction * Time.deltaTime);
+        direction = Vector3.up * jumpForce;
+        Debug.Log("[Jump] Jumped via UI button.");
     }
 
     private void OnTriggerEnter(Collider other)

@@ -24,6 +24,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_InputField nameInputField;
     [SerializeField] private TMP_InputField regNoInputField;
 
+
+    [Header("Retry Control")]
+    private int retryCount = 0;
+    private const int maxRetries = 3;
+
+
+
     private Player player;
     private Spawner spawner;
 
@@ -82,19 +89,32 @@ public class GameManager : MonoBehaviour
         UpdateHiscore();
     }
 
-    public void GameOver()
+   public void GameOver()
+{
+    gameSpeed = 0f;
+    enabled = false;
+
+    player?.gameObject.SetActive(false);
+    spawner?.gameObject.SetActive(false);
+    gameOverText?.gameObject.SetActive(true);
+
+    retryCount++;
+
+    if (retryCount < maxRetries)
     {
-        gameSpeed = 0f;
-        enabled = false;
-
-        player?.gameObject.SetActive(false);
-        spawner?.gameObject.SetActive(false);
-        gameOverText?.gameObject.SetActive(true);
         retryButton?.gameObject.SetActive(true);
-
-        UpdateHiscore();
-        SendScoreToBackend(); // ✅ Send score to backend
+        Debug.Log($"🔁 Retry attempt {retryCount}/{maxRetries}");
     }
+    else
+    {
+        retryButton?.gameObject.SetActive(false);
+        Debug.Log("🚫 Max retries reached. Retry disabled.");
+    }
+
+    UpdateHiscore();
+    SendScoreToBackend(); // ✅ Send score to backend
+}
+
 
     private void Update()
     {
