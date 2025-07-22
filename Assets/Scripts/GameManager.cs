@@ -23,7 +23,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_InputField nameInputField;
     [SerializeField] private TMP_InputField regNoInputField;
 
-    [Header("Retry Control")]
     private int retryCount = 0;
     private const int maxRetries = 3;
 
@@ -85,11 +84,7 @@ public class GameManager : MonoBehaviour
         retryCount++;
         retryButton?.gameObject.SetActive(retryCount < maxRetries);
 
-        Debug.Log(retryCount < maxRetries
-            ? $"🔁 Retry attempt {retryCount}/{maxRetries}"
-            : "🚫 Max retries reached. Retry disabled.");
-
-        SendScoreToBackend(); // 🔁 Always send current score
+        SendScoreToBackend();
     }
 
     private void Update()
@@ -105,27 +100,14 @@ public class GameManager : MonoBehaviour
 
         playerName = nameInputField?.text.Trim();
         regNo = regNoInputField?.text.Trim();
-
-        if (string.IsNullOrWhiteSpace(playerName) || string.IsNullOrWhiteSpace(regNo))
-        {
-            Debug.LogWarning("⚠️ Name or RegNo is empty.");
-        }
-        else
-        {
-            Debug.Log($"✅ Player: {playerName}, RegNo: {regNo}");
-        }
     }
 
     private void SendScoreToBackend()
     {
         if (string.IsNullOrWhiteSpace(playerName) || string.IsNullOrWhiteSpace(regNo))
-        {
-            Debug.LogWarning("⚠️ Cannot send score. Missing name or regNo.");
             return;
-        }
 
         int currentScore = Mathf.FloorToInt(score);
-        Debug.Log($"🎯 Sending score: {currentScore}");
 
         if (!hasPostedScore)
         {
@@ -156,18 +138,11 @@ public class GameManager : MonoBehaviour
         request.downloadHandler = new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
 
-        Debug.Log("📡 Sending POST request...");
-
         yield return request.SendWebRequest();
 
         if (request.result == UnityWebRequest.Result.Success)
         {
-            Debug.Log("✅ Score POSTED successfully!");
             hasPostedScore = true;
-        }
-        else
-        {
-            Debug.LogError($"❌ POST failed: {request.responseCode} - {request.error}");
         }
     }
 
@@ -188,18 +163,7 @@ public class GameManager : MonoBehaviour
         request.downloadHandler = new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
 
-        Debug.Log("📡 Sending PATCH request...");
-
         yield return request.SendWebRequest();
-
-        if (request.result == UnityWebRequest.Result.Success)
-        {
-            Debug.Log("✅ Score PATCHED successfully!");
-        }
-        else
-        {
-            Debug.LogError($"❌ PATCH failed: {request.responseCode} - {request.error}");
-        }
     }
 
     [System.Serializable]
