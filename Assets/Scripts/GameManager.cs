@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
 
     [Header("UI References")]
     [SerializeField] private TextMeshProUGUI scoreText;
-    [SerializeField] private TextMeshProUGUI hiscoreText;
     [SerializeField] private TextMeshProUGUI gameOverText;
     [SerializeField] private Button retryButton;
 
@@ -24,12 +23,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_InputField nameInputField;
     [SerializeField] private TMP_InputField regNoInputField;
 
-
     [Header("Retry Control")]
     private int retryCount = 0;
     private const int maxRetries = 3;
-
-
 
     private Player player;
     private Spawner spawner;
@@ -39,6 +35,9 @@ public class GameManager : MonoBehaviour
 
     private string playerName;
     private string regNo;
+
+    private bool hasPostedScore = false;
+    private const string baseUrl = "https://induction-backend.onrender.com/api/v1";
 
     private void Awake()
     {
@@ -52,30 +51,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
-    {
-        if (Instance == this)
-        {
-            Instance = null;
-        }
-    }
-
     private void Start()
     {
         player = FindObjectOfType<Player>();
         spawner = FindObjectOfType<Spawner>();
-
         NewGame();
     }
 
     public void NewGame()
     {
-        Obstacle[] obstacles = FindObjectsOfType<Obstacle>();
-
-        foreach (var obstacle in obstacles)
-        {
+        foreach (var obstacle in FindObjectsOfType<Obstacle>())
             Destroy(obstacle.gameObject);
-        }
 
         score = 0f;
         gameSpeed = initialGameSpeed;
@@ -85,36 +71,26 @@ public class GameManager : MonoBehaviour
         spawner?.gameObject.SetActive(true);
         gameOverText?.gameObject.SetActive(false);
         retryButton?.gameObject.SetActive(false);
-
-        UpdateHiscore();
     }
 
-   public void GameOver()
-{
-    gameSpeed = 0f;
-    enabled = false;
-
-    player?.gameObject.SetActive(false);
-    spawner?.gameObject.SetActive(false);
-    gameOverText?.gameObject.SetActive(true);
-
-    retryCount++;
-
-    if (retryCount < maxRetries)
+    public void GameOver()
     {
-        retryButton?.gameObject.SetActive(true);
-        Debug.Log($"🔁 Retry attempt {retryCount}/{maxRetries}");
-    }
-    else
-    {
-        retryButton?.gameObject.SetActive(false);
-        Debug.Log("🚫 Max retries reached. Retry disabled.");
-    }
+        gameSpeed = 0f;
+        enabled = false;
 
-    UpdateHiscore();
-    SendScoreToBackend(); // ✅ Send score to backend
-}
+        player?.gameObject.SetActive(false);
+        spawner?.gameObject.SetActive(false);
+        gameOverText?.gameObject.SetActive(true);
 
+        retryCount++;
+        retryButton?.gameObject.SetActive(retryCount < maxRetries);
+
+        Debug.Log(retryCount < maxRetries
+            ? $"🔁 Retry attempt {retryCount}/{maxRetries}"
+            : "🚫 Max retries reached. Retry disabled.");
+
+        SendScoreToBackend(); // 🔁 Always send current score
+    }
 
     private void Update()
     {
@@ -123,28 +99,16 @@ public class GameManager : MonoBehaviour
         scoreText.text = Mathf.FloorToInt(score).ToString("D5");
     }
 
-    private void UpdateHiscore()
-    {
-        float hiscore = PlayerPrefs.GetFloat("hiscore", 0);
-
-        if (score > hiscore)
-        {
-            hiscore = score;
-            PlayerPrefs.SetFloat("hiscore", hiscore);
-        }
-
-        hiscoreText.text = Mathf.FloorToInt(hiscore).ToString("D5");
-    }
-
-    // ✅ Called from Login Button
     public void SetLoginInfo()
     {
+        UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(null);
+
         playerName = nameInputField?.text.Trim();
         regNo = regNoInputField?.text.Trim();
 
         if (string.IsNullOrWhiteSpace(playerName) || string.IsNullOrWhiteSpace(regNo))
         {
-            Debug.LogWarning("⚠️ Player name or registration number is empty.");
+            Debug.LogWarning("⚠️ Name or RegNo is empty.");
         }
         else
         {
@@ -152,7 +116,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // ✅ Score sending function
     private void SendScoreToBackend()
     {
         if (string.IsNullOrWhiteSpace(playerName) || string.IsNullOrWhiteSpace(regNo))
@@ -161,39 +124,81 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        StartCoroutine(SendScoreRequest());
+        int currentScore = Mathf.FloorToInt(score);
+        Debug.Log($"🎯 Sending score: {currentScore}");
+
+        if (!hasPostedScore)
+        {
+            StartCoroutine(SendPostRequest(currentScore));
+        }
+        else
+        {
+            StartCoroutine(SendPatchRequest(currentScore));
+        }
     }
 
-    private IEnumerator SendScoreRequest()
+    private IEnumerator SendPostRequest(int currentScore)
     {
-        string url = "https://induction-backend.onrender.com/api/v1"; // 🔁 Replace with your backend endpoint
+        string url = baseUrl;
 
         ScoreData data = new ScoreData
         {
             name = playerName,
             ReqNo = regNo,
-            score = Mathf.FloorToInt(score)
+            score = currentScore
         };
 
         string json = JsonUtility.ToJson(data);
-        byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(json);
+        byte[] jsonBytes = new System.Text.UTF8Encoding().GetBytes(json);
 
         UnityWebRequest request = new UnityWebRequest(url, "POST");
-        request.uploadHandler = new UploadHandlerRaw(jsonToSend);
+        request.uploadHandler = new UploadHandlerRaw(jsonBytes);
         request.downloadHandler = new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
 
-        Debug.Log("📡 Sending data to backend...");
+        Debug.Log("📡 Sending POST request...");
 
         yield return request.SendWebRequest();
 
         if (request.result == UnityWebRequest.Result.Success)
         {
-            Debug.Log("✅ Score sent successfully!");
+            Debug.Log("✅ Score POSTED successfully!");
+            hasPostedScore = true;
         }
         else
         {
-            Debug.LogError($"❌ Failed to send score: {request.error}");
+            Debug.LogError($"❌ POST failed: {request.responseCode} - {request.error}");
+        }
+    }
+
+    private IEnumerator SendPatchRequest(int currentScore)
+    {
+        string patchUrl = $"{baseUrl}/{regNo}";
+
+        ScoreUpdateData update = new ScoreUpdateData
+        {
+            score = currentScore
+        };
+
+        string json = JsonUtility.ToJson(update);
+        byte[] jsonBytes = new System.Text.UTF8Encoding().GetBytes(json);
+
+        UnityWebRequest request = new UnityWebRequest(patchUrl, "PATCH");
+        request.uploadHandler = new UploadHandlerRaw(jsonBytes);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+
+        Debug.Log("📡 Sending PATCH request...");
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            Debug.Log("✅ Score PATCHED successfully!");
+        }
+        else
+        {
+            Debug.LogError($"❌ PATCH failed: {request.responseCode} - {request.error}");
         }
     }
 
@@ -202,6 +207,12 @@ public class GameManager : MonoBehaviour
     {
         public string name;
         public string ReqNo;
+        public int score;
+    }
+
+    [System.Serializable]
+    private class ScoreUpdateData
+    {
         public int score;
     }
 }

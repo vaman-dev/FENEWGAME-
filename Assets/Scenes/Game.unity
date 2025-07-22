@@ -2253,7 +2253,7 @@ MonoBehaviour:
   hiscoreText: {fileID: 151625051}
   gameOverText: {fileID: 1081033933}
   retryButton: {fileID: 1417875464}
-  nameInputField: {fileID: 0}
+  nameInputField: {fileID: 1092710488}
   regNoInputField: {fileID: 2119468915}
 --- !u!4 &1501353567
 Transform:
